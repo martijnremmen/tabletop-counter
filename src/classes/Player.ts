@@ -1,6 +1,6 @@
 import { Counter, createCounter } from "./Counter";
 
-export { Player, createPlayer, addCounter, removeCounter };
+export { Player, createPlayer, addCounter, removeCounter, changeName };
 
 interface Player {
   name: string;
@@ -20,4 +20,8 @@ function addCounter(player: Player, type: string, value: number): void {
 
 function removeCounter(player: Player, index: number): void {
   player.counters.splice(index, 1);
+}
+
+function changeName(player: Player, name: string): void {
+  player.name = name.toString();
 }
