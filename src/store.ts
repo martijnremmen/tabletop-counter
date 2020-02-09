@@ -3,7 +3,8 @@ import {
   Player,
   createPlayer,
   addCounter,
-  removeCounter
+  removeCounter,
+  changeName
 } from "./classes/Player";
 import {
   Counter,
@@ -73,5 +74,12 @@ export const mutations = {
       console.log(`Decrementing counter ${counter.type} with ${value}`);
     }
     decrementCounter(counter, value);
+  },
+
+  updatePlayerName(player: Player, name: string): void {
+    if (store.debug) {
+      console.log(`Changing ${player.name}'s name to ${name.toString()}`);
+    }
+    changeName(player, name);
   }
 };
