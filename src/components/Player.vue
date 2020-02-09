@@ -1,8 +1,19 @@
 <template>
   <div class="players">
     <div class="controlbar">
-      <h1>{{ player.name }}</h1>
-      <button class="btn-success" @click="addCounter()"> <i class="material-icons">add</i> Add counter</button>
+      <playernamemodalComponent
+        v-if="showModal"
+        @close="showModal = false"
+        :player="player"
+        :newName="newName"
+        @submitChanges="changeName(newName)"
+      ></playernamemodalComponent>
+      <h1 @click="showModal = true">
+        {{ player.name }} <i class="material-icons">edit</i>
+      </h1>
+      <button class="btn-success" @click="addCounter()">
+        <i class="material-icons">add</i> Add counter
+      </button>
       <button class="btn-danger" @click="removePlayer()">Remove player</button>
     </div>
     <div class="counters">
@@ -23,6 +34,7 @@ import { Player } from "../classes/Player";
 import { Counter } from "../classes/Counter";
 import { mutations } from "../store";
 import counterComponent from "./Counter.vue";
+import playernamemodalComponent from "./PlayerNameModal.vue";
 
 export default Vue.extend({
   props: {
@@ -30,8 +42,15 @@ export default Vue.extend({
     index: Number
   },
 
+  data: () => {
+    return {
+      showModal: false
+    };
+  },
+
   components: {
-    counterComponent
+    counterComponent,
+    playernamemodalComponent
   },
 
   methods: {
@@ -40,6 +59,9 @@ export default Vue.extend({
     },
     removePlayer: function(): void {
       mutations.removePlayerById(this.index);
+    },
+    changeName: function(name: string): void {
+      mutations.updatePlayerName(this.player, name);
     }
   }
 });
@@ -58,24 +80,32 @@ export default Vue.extend({
   }
 
   & div:last-child {
-    margin-right: 0
+    margin-right: 0;
   }
 }
 
 .controlbar {
   padding: 1em;
+  text-align: left;
 
   button {
     border-radius: 20px;
     padding: 0.5em;
-
+    float: right;
   }
 
   h1 {
     font-size: 3em;
-    text-align: left;
     display: inline-block;
-    margin-right: auto;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--bg-darker);
+    }
+
+    i {
+      vertical-align: top;
+    }
   }
 }
 </style>
