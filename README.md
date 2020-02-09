@@ -1,4 +1,4 @@
-# magic-counter
+# tabletop-counter
 
 ## Project setup
 ```
