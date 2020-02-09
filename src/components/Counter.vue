@@ -1,13 +1,19 @@
 <template>
   <div class="counter">
     <div class="controls">
-      <button class="btn-success material-icons" @click="incbutton()">add</button>
-      <button class="btn-danger material-icons" @click="decbutton()">remove</button>
+      <button class="btn-success material-icons" @click="incbutton()">
+        add
+      </button>
+      <button class="btn-danger material-icons" @click="decbutton()">
+        remove
+      </button>
     </div>
     <div class="display">
       <div class="titlebar">
         <h3 class="type">{{ counter.type }}</h3>
-        <button class="material-icons" @click="removeCounter()">remove_circle</button>
+        <button class="material-icons" @click="removeCounter()">
+          remove_circle
+        </button>
       </div>
 
       <template v-if="editMode">
@@ -124,6 +130,9 @@ export default Vue.extend({
     .confirmbar {
       border-radius: 10px;
       overflow: hidden;
+      height: 2em;
+      width: 90%;
+      margin: auto;
 
       button {
         width: 50%;
@@ -144,6 +153,7 @@ export default Vue.extend({
     }
 
     .titlebar {
+      height: 1.5em;
 
       h3 {
         width: 80%;
