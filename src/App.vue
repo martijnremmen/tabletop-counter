@@ -37,17 +37,18 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-$material-icons-font-path: '~material-icons/iconfont/';
+$material-icons-font-path: "~material-icons/iconfont/";
 
-@import '~material-icons/iconfont/material-icons.scss';
+@import "~material-icons/iconfont/material-icons.scss";
 
 :root {
   --bg-primary: rgb(29, 29, 29);
   --bg-secondary: rgb(48, 48, 48);
+  --bg-darker: rgb(20, 20, 20);
   --text: #ffffff;
   --text-green: #1bb346;
   --text-red: #b32d2d;
-  --btn-primary: #F2E9CE;
+  --btn-primary: #f2e9ce;
   --btn-success: #1bb346;
   --btn-danger: #b32d2d;
   background-color: var(--bg-primary);
@@ -64,7 +65,6 @@ $material-icons-font-path: '~material-icons/iconfont/';
 .btn-primary {
   background-color: var(--btn-primary);
   border: none;
-  
 }
 
 button {
