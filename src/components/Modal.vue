@@ -5,11 +5,15 @@
         <div class="costumheader">
           <slot name="header">Modal header</slot>
         </div>
-
         <button class="material-icons" @click="$emit('close')">close</button>
       </div>
+
       <div class="modalbody">
         <slot name="body"></slot>
+
+        <div class="modalfooter">
+          <slot name="footer"></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -24,6 +28,7 @@ export default Vue.extend({});
 <style lang="scss" scoped>
 .modalmask {
   position: fixed;
+  overflow: hidden;
   width: 100%;
   height: 100%;
   background-color: rgba($color: #000000, $alpha: 0.5);
@@ -33,8 +38,9 @@ export default Vue.extend({});
 }
 
 .modal {
-  width: 90%;
-  max-width: 40rem;
+  width: max-content;
+  min-width: 20rem;
+  max-width: 90%;
   margin: 10% auto auto auto;
   background-color: var(--bg-primary);
   border-radius: 20px;
@@ -64,6 +70,30 @@ export default Vue.extend({});
       color: var(--text-red);
       font-size: 2.6rem;
       padding: 0.7rem;
+      width: 20%;
+    }
+  }
+
+  .modalfooter {
+    margin-top: 2rem;
+    border-top: var(--bg-secondary) 1px solid;
+    padding-top: 0.8rem;
+    padding-bottom: 2rem;
+
+    button {
+      border-radius: 15px;
+      color: var(--text);
+      font-size: 1rem;
+      width: 30%;
+      min-width: max-content;
+    }
+
+    button:nth-child(1) {
+      float: left;
+    }
+
+    button:nth-child(2) {
+      float: right;
     }
   }
 }
