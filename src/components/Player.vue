@@ -1,19 +1,28 @@
 <template>
   <div class="players">
     <div class="controlbar">
-      <playernamemodalComponent
-        v-if="showModal"
-        @close="showModal = false"
-        :player="player"
+      <inputModalComponent
+        v-if="showPlayerNameModel"
+        @close="showPlayerNameModel = false"
         @submitModal="changeName"
-      ></playernamemodalComponent>
-      <h1 @click="showModal = true">
+        ><p>
+          You are editing <strong>{{ player.name }}'s</strong> name.
+        </p></inputModalComponent
+      >
+      <h1 @click="showPlayerNameModel = true">
         {{ player.name }} <i class="material-icons">edit</i>
       </h1>
-      <button class="btn-success" @click="addCounter()">
-        <i class="material-icons">add</i> Add counter
+      <confirmModalComponent
+        v-if="showPlayerRemoveModal"
+        @close="showPlayerRemoveModal = false"
+        @confirm="removePlayer"
+        @cancel="showPlayerRemoveModal = false"
+        >This action will <strong>permanently</strong> delete player
+        {{ player.name }}</confirmModalComponent
+      >
+      <button class="material-icons" @click="showPlayerRemoveModal = true">
+        remove_circle
       </button>
-      <button class="btn-danger" @click="removePlayer()">Remove player</button>
     </div>
     <div class="counters">
       <counterComponent
@@ -23,6 +32,7 @@
         :index="index"
         :player="player"
       ></counterComponent>
+      <button class="material-icons" @click="addCounter()">add</button>
     </div>
   </div>
 </template>
@@ -33,7 +43,8 @@ import { Player } from "../classes/Player";
 import { Counter } from "../classes/Counter";
 import { mutations } from "../store";
 import counterComponent from "./Counter.vue";
-import playernamemodalComponent from "./PlayerNameModal.vue";
+import inputModalComponent from "./inputModal.vue";
+import confirmModalComponent from "./ConfirmModal.vue";
 
 export default Vue.extend({
   props: {
@@ -43,13 +54,15 @@ export default Vue.extend({
 
   data: () => {
     return {
-      showModal: false
+      showPlayerNameModel: false,
+      showPlayerRemoveModal: false
     };
   },
 
   components: {
     counterComponent,
-    playernamemodalComponent
+    inputModalComponent,
+    confirmModalComponent
   },
 
   methods: {
@@ -57,11 +70,12 @@ export default Vue.extend({
       mutations.addCounterToPlayer(this.player, type, value);
     },
     removePlayer: function(): void {
+      this.showPlayerRemoveModal = false;
       mutations.removePlayerById(this.index);
     },
     changeName: function(name: string): void {
       mutations.updatePlayerName(this.player, name);
-      this.showModal = false;
+      this.showPlayerNameModel = false;
     }
   }
 });
@@ -74,6 +88,18 @@ export default Vue.extend({
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
+  padding-bottom: 1rem;
+
+  button {
+    background-color: var(--bg-secondary);
+    color: var(--btn-success);
+    padding: 1rem;
+    height: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 3rem;
+    border-radius: 50%;
+  }
 
   & * {
     margin-right: 2em;
@@ -84,15 +110,29 @@ export default Vue.extend({
   }
 }
 
+.players {
+  margin-bottom: 3em;
+}
+
 .controlbar {
   padding: 1em;
   text-align: left;
-  margin-top: 3rem;
 
   button {
-    border-radius: 20px;
-    padding: 0.5em;
+    color: var(--btn-danger);
+    background-color: transparent;
+    font-size: 2rem;
+    padding: 0.3em;
     float: right;
+    cursor: pointer;
+    transition: color;
+    transition-timing-function: ease-in-out;
+    transition-duration: 100ms;
+
+    &:hover,
+    :active {
+      color: rgba(var(--btn-danger), 0.5);
+    }
   }
 
   h1 {
