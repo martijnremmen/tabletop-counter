@@ -10,10 +10,30 @@
     </div>
     <div class="display">
       <div class="titlebar">
-        <h3 class="type">{{ counter.type }}</h3>
-        <button class="material-icons" @click="removeCounter()">
+        <h3 class="type" @click="showRenameModal = true">{{ counter.type }}</h3>
+        <inputModalComponent
+          v-if="showRenameModal"
+          @close="showRenameModal = false"
+          @submitModal="renameCounter"
+          ><p>
+            You are editing the counter
+            <strong>"{{ counter.type }}"</strong> from player
+            <strong>"{{ player.name }}"</strong
+            >.
+          </p><br></inputModalComponent
+        >
+        <button class="material-icons" @click="showDeleteConfirmModal = true">
           remove_circle
         </button>
+        <confirmModalComponent
+          v-if="showDeleteConfirmModal"
+          @close="showDeleteConfirmModal = false"
+          @confirm="removeCounter"
+          @cancel="showDeleteConfirmModal = false"
+          >This action will <strong>permanently</strong> delete counter
+          <strong>"{{ counter.type }}"</strong> from player
+          <strong>"{{ player.name }}"</strong>
+        </confirmModalComponent>
       </div>
 
       <template v-if="editMode">
@@ -37,6 +57,8 @@ import { Counter } from "../classes/Counter";
 import { Player } from "../classes/Player";
 import { mutations } from "../store";
 import historyComponent from "./History.vue";
+import confirmModalComponent from "./ConfirmModal.vue";
+import inputModalComponent from "./inputModal.vue";
 
 export default Vue.extend({
   props: {
@@ -48,12 +70,16 @@ export default Vue.extend({
   data: () => {
     return {
       editMode: false,
-      editValue: 0
+      editValue: 0,
+      showDeleteConfirmModal: false,
+      showRenameModal: false
     };
   },
 
   components: {
-    historyComponent
+    historyComponent,
+    confirmModalComponent,
+    inputModalComponent
   },
 
   methods: {
@@ -82,6 +108,11 @@ export default Vue.extend({
     },
     removeCounter(): void {
       mutations.removeCounterFromPlayer(this.player, this.index);
+      this.showDeleteConfirmModal = false;
+    },
+    renameCounter(name: string): void {
+      mutations.updateCounterType(this.counter, name);
+      this.showRenameModal = false;
     }
   },
 
@@ -91,6 +122,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .counter {
+  text-align: center;
   padding: 0.7em;
   max-width: 15em;
   min-width: 10em;
@@ -102,7 +134,7 @@ export default Vue.extend({
   .controls {
     width: (100% / 3);
     display: inline-block;
-    border-radius: 13px;
+    border-radius: 15px;
     overflow: hidden;
     height: 100%;
     font-size: 1em;
@@ -118,6 +150,7 @@ export default Vue.extend({
       padding: 0.3em;
       height: 50%;
       font-size: 2em;
+      color: var(--text);
     }
   }
 
@@ -158,6 +191,13 @@ export default Vue.extend({
       h3 {
         width: 80%;
         margin: 0;
+        cursor: pointer;
+        border-radius: 15px;
+
+        &:hover {
+          background-color: var(--text);
+          color: var(--bg-secondary)
+        }
       }
 
       button {
