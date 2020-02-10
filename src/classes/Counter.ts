@@ -1,4 +1,10 @@
-export { Counter, createCounter, incrementCounter, decrementCounter };
+export {
+  Counter,
+  createCounter,
+  incrementCounter,
+  decrementCounter,
+  updateCounterType
+};
 
 interface Counter {
   type: string;
@@ -22,4 +28,8 @@ function incrementCounter(counter: Counter, value: number = 1): void {
 function decrementCounter(counter: Counter, value: number = 1): void {
   counter.value = counter.value - value;
   counter.history.push(-value);
+}
+
+function updateCounterType(counter: Counter, type: string): void {
+  counter.type = type;
 }

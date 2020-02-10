@@ -10,7 +10,8 @@ import {
   Counter,
   createCounter,
   incrementCounter,
-  decrementCounter
+  decrementCounter,
+  updateCounterType
 } from "./classes/Counter";
 
 export const store = Vue.observable({
@@ -74,6 +75,10 @@ export const mutations = {
       console.log(`Decrementing counter ${counter.type} with ${value}`);
     }
     decrementCounter(counter, value);
+  },
+
+  updateCounterType(counter: Counter, type: string) {
+    updateCounterType(counter, type);
   },
 
   updatePlayerName(player: Player, name: string): void {
