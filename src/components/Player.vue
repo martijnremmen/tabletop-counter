@@ -87,6 +87,7 @@ export default Vue.extend({
 .controlbar {
   padding: 1em;
   text-align: left;
+  margin-top: 3rem;
 
   button {
     border-radius: 20px;
@@ -98,9 +99,13 @@ export default Vue.extend({
     font-size: 3em;
     display: inline-block;
     cursor: pointer;
+    border-radius: 15px;
+    padding: 0.4rem;
+    margin: 0;
 
     &:hover {
-      background-color: var(--bg-darker);
+      background-color: var(--text);
+      color: var(--bg-darker);
     }
 
     i {
