@@ -18,10 +18,11 @@
           ><p>
             You are editing the counter
             <strong>"{{ counter.type }}"</strong> from player
-            <strong>"{{ player.name }}"</strong
-            >.
-          </p><br></inputModalComponent
-        >
+            <strong>"{{ player.name }}"</strong>.
+          </p>
+          <br
+        /></inputModalComponent>
+
         <button class="material-icons" @click="showDeleteConfirmModal = true">
           remove_circle
         </button>
@@ -196,7 +197,7 @@ export default Vue.extend({
 
         &:hover {
           background-color: var(--text);
-          color: var(--bg-secondary)
+          color: var(--bg-secondary);
         }
       }
 
