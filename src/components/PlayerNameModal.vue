@@ -21,13 +21,13 @@ import Modal from "./Modal.vue";
 
 export default Vue.extend({
   props: {
-    player: { type: Object as () => Player },
+    player: { type: Object as () => Player }
   },
 
   data: () => {
     return {
-      newName: '' as string
-    }
+      newName: "" as string
+    };
   },
 
   components: {

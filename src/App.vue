@@ -33,9 +33,11 @@ export default Vue.extend({
       if (name) {
         mutations.addPlayer(name, health);
       } else {
-        mutations.addPlayer("Player " + this.sharedState.players.length.toString(), health)
+        mutations.addPlayer(
+          "Player " + this.sharedState.players.length.toString(),
+          health
+        );
       }
-      
     }
   }
 });
