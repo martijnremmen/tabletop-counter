@@ -6,8 +6,8 @@
     <template v-slot:body>
       <p>What name would you like to give to {{ player.name }}?</p>
       <label for="playername">New name</label>
-      <input type="text" placeholder="Name" id="playername" :value="newName" />
-      <button class="btn-primary" @click="$emit('submitChanges', newName)">
+      <input type="text" placeholder="Name" id="playername" v-model="newName" />
+      <button class="btn-primary" @click="$emit('submitModal', newName)">
         Submit
       </button>
     </template>
@@ -22,7 +22,12 @@ import Modal from "./Modal.vue";
 export default Vue.extend({
   props: {
     player: { type: Object as () => Player },
-    newName: String
+  },
+
+  data: () => {
+    return {
+      newName: '' as string
+    }
   },
 
   components: {

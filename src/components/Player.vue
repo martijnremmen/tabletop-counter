@@ -6,7 +6,7 @@
         @close="showModal = false"
         :player="player"
         :newName="newName"
-        @submitChanges="changeName(newName)"
+        @submitModal="changeName"
       ></playernamemodalComponent>
       <h1 @click="showModal = true">
         {{ player.name }} <i class="material-icons">edit</i>
@@ -62,6 +62,7 @@ export default Vue.extend({
     },
     changeName: function(name: string): void {
       mutations.updatePlayerName(this.player, name);
+      this.showModal = false;
     }
   }
 });
