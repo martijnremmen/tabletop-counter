@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <button @click="addPlayer('John')">Add player</button>
+    <button @click="addPlayer()">Add player</button>
     <playerComponent
       v-for="(player, index) in sharedState.players"
       :key="index"
@@ -30,7 +30,12 @@ export default Vue.extend({
 
   methods: {
     addPlayer: function(name: string, health: number = 20) {
-      mutations.addPlayer(name, health);
+      if (name) {
+        mutations.addPlayer(name, health);
+      } else {
+        mutations.addPlayer("Player " + this.sharedState.players.length.toString(), health)
+      }
+      
     }
   }
 });
