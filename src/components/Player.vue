@@ -5,7 +5,6 @@
         v-if="showModal"
         @close="showModal = false"
         :player="player"
-        :newName="newName"
         @submitModal="changeName"
       ></playernamemodalComponent>
       <h1 @click="showModal = true">
