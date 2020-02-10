@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <button @click="addPlayer()">Add player</button>
     <playerComponent
       v-for="(player, index) in sharedState.players"
       :key="index"
       :index="index"
       :player="player"
     ></playerComponent>
+    <h1 class="addplayerbutton" @click="addPlayer()">
+      Add player <i class="material-icons">add</i>
+    </h1>
   </div>
 </template>
 
@@ -77,14 +79,38 @@ $material-icons-font-path: "~material-icons/iconfont/";
 button {
   border: none;
   padding: 1em;
+  cursor: pointer;
 }
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: var(--text);
   margin-top: 60px;
+}
+
+.addplayerbutton {
+  margin-left: 2em;
+  font-size: 3em;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 15px;
+  padding: 0.4rem;
+  margin: 0;
+  text-align: left;
+  transition: color background-color;
+  transition-duration: 100ms;
+  transition-timing-function: ease-in-out;
+
+  &:hover,
+  :active {
+    background-color: var(--text);
+    color: var(--bg-darker);
+  }
+
+  i {
+    vertical-align: top;
+  }
 }
 </style>
