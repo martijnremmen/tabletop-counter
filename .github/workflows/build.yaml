@@ -1,0 +1,33 @@
+name: CD
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2-beta
+    - uses: actions/setup-node@master
+
+    - name: install dependencies
+      run: npm install
+
+    - name: Compile
+      run: npm run build
+    
+    - name: Get version tag
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+
+    - name: Login to Github packages
+      run: docker login -u Accendit -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
+
+    - name: Build Docker image
+      run: docker build . --file dockerfile --tag  docker.pkg.github.com/accendit/tabletop-counter/tabletop-counter:${{ steps.vars.outputs.tag }}
+
+    - name: Push Docker image
+      run: docker push docker.pkg.github.com/accendit/tabletop-counter/tabletop-counter:${{ steps.vars.outputs.tag }}
