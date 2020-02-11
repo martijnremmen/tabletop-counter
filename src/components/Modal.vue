@@ -61,7 +61,7 @@ export default Vue.extend({});
     }
 
     .costumheader {
-      width: (100% / 5 * 4);
+      max-width: 80%;
     }
 
     button {
@@ -70,7 +70,7 @@ export default Vue.extend({});
       color: var(--text-red);
       font-size: 2.6rem;
       padding: 0.7rem;
-      width: 20%;
+      max-width: 20%;
     }
   }
 
