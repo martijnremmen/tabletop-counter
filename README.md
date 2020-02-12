@@ -1,4 +1,12 @@
 # tabletop-counter
+A web app that assists in keeping scores for tabletop games.
+
+## features
+* Add and remove players.
+* Add and remove Counters to players.
+* Rename Counters.
+* Dynamically saves to LocalStorage.
+* Reloads saved state from LocalStorage.
 
 ## Project setup
 ```
