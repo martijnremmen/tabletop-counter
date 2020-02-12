@@ -26,7 +26,7 @@ export const mutations = {
     //     `Adding player ${name} with starting health ${health.toString()}`
     //   );
     // }
-    store.players.push(createPlayer(name, health));
+    actions.storeChanged();
   },
 
   removePlayerByName(name: string): void {
@@ -34,6 +34,7 @@ export const mutations = {
       return player.name !== name;
     });
     store.players = filtered;
+    actions.storeChanged();
   },
 
   removePlayerById(id: number): void {
@@ -41,6 +42,7 @@ export const mutations = {
     //   console.log(`Removing player with ID ${id.toString()}`);
     // }
     store.players.splice(id, 1);
+    actions.storeChanged();
   },
 
   addCounterToPlayer(player: Player, type: string, value: number): void {
@@ -51,7 +53,7 @@ export const mutations = {
     //     }`
     //   );
     // }
-    addCounter(player, type, value);
+    actions.storeChanged();
   },
 
   removeCounterFromPlayer(player: Player, index: number): void {
@@ -61,6 +63,7 @@ export const mutations = {
     //   );
     // }
     removeCounter(player, index);
+    actions.storeChanged();
   },
 
   incrementCounterFromPlayer(counter: Counter, value: number): void {
@@ -68,6 +71,7 @@ export const mutations = {
     //   console.log(`Incrementing counter ${counter.type} with ${value}`);
     // }
     incrementCounter(counter, value);
+    actions.storeChanged();
   },
 
   decrementCounterFromPlayer(counter: Counter, value: number): void {
@@ -75,10 +79,12 @@ export const mutations = {
     //   console.log(`Decrementing counter ${counter.type} with ${value}`);
     // }
     decrementCounter(counter, value);
+    actions.storeChanged();
   },
 
   updateCounterType(counter: Counter, type: string) {
     updateCounterType(counter, type);
+    actions.storeChanged();
   },
 
   updatePlayerName(player: Player, name: string): void {
@@ -86,5 +92,35 @@ export const mutations = {
     //   console.log(`Changing ${player.name}'s name to ${name.toString()}`);
     // }
     changeName(player, name);
+    actions.storeChanged();
+  },
+
+  async initializeStore(): Promise<void> {
+    try {
+      let localStore = localStorage.getItem("store");
+      if (localStore) {
+        store.players = JSON.parse(localStore);
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+};
+
+export const actions = {
+  async storeChanged(): Promise<void[]> {
+    return Promise.all([this.saveStore()]);
+  },
+
+  async saveStore(): Promise<void> {
+    return new Promise(resolve => {
+      try {
+        let toStore = JSON.stringify(store.players);
+        localStorage.setItem("store", toStore);
+        resolve();
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
   }
 };

@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { store, mutations } from "./store";
+import { store, mutations, actions } from "./store";
 import playerComponent from "./components/Player.vue";
 
 export default Vue.extend({
@@ -30,6 +30,10 @@ export default Vue.extend({
     playerComponent
   },
 
+  created: function() {
+    this.restore();
+  },
+
   methods: {
     addPlayer: function(name: string, health: number = 20) {
       if (name) {
@@ -40,6 +44,16 @@ export default Vue.extend({
           health
         );
       }
+    },
+
+    save: function(): void {
+      actions.saveStore().catch(message => {
+        console.log("[ERR]" + message);
+      });
+    },
+
+    restore: function(): void {
+      mutations.initializeStore();
     }
   }
 });
