@@ -10,7 +10,9 @@
     </div>
     <div class="display">
       <div class="titlebar">
+
         <h3 class="type" @click="showRenameModal = true">{{ counter.type }}</h3>
+
         <inputModalComponent
           v-if="showRenameModal"
           @close="showRenameModal = false"
@@ -38,7 +40,7 @@
       </div>
 
       <template v-if="editMode">
-        <p class="value">{{ editValue }}</p>
+        <p class="value">{{ editValue > 0? '+': '' }}{{ editValue }}</p>
         <div class="confirmbar">
           <button class="btn-danger" @click="applyChanges()">Ok</button>
           <button class="btn-success" @click="disregardChanges()">

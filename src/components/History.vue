@@ -4,7 +4,7 @@
       v-for="(change, index) in getLastFive"
       :key="index"
       :class="index == 0 ? 'first' : ''"
-      >{{ change }}</small
+      >{{ change > 0? '+': '' }}{{ change }}</small
     >
   </div>
 </template>
@@ -32,6 +32,7 @@ export default Vue.extend({
   text-align: left;
   padding-left: 1em;
   padding-right: 1em;
+  color: var(--text-green);
 
   .first {
     font-size: 1.3rem;
