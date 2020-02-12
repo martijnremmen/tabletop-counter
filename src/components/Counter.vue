@@ -40,10 +40,13 @@
       <template v-if="editMode">
         <p class="value">{{ editValue }}</p>
         <div class="confirmbar">
-          <button class="btn-success" @click="applyChanges()">Ok</button>
-          <button class="btn-danger" @click="disregardChanges()">Cancel</button>
+          <button class="btn-danger" @click="applyChanges()">Ok</button>
+          <button class="btn-success" @click="disregardChanges()">
+            Cancel
+          </button>
         </div>
       </template>
+
       <template v-else>
         <p class="value">{{ counter.value }}</p>
         <historyComponent :history="counter.history"></historyComponent>
