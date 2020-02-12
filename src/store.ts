@@ -26,6 +26,7 @@ export const mutations = {
     //     `Adding player ${name} with starting health ${health.toString()}`
     //   );
     // }
+    store.players.push(createPlayer(name, createCounter("health", health)));
     actions.storeChanged();
   },
 
@@ -53,6 +54,7 @@ export const mutations = {
     //     }`
     //   );
     // }
+    addCounter(player, createCounter(type, value));
     actions.storeChanged();
   },
 

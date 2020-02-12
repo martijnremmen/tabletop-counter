@@ -1,4 +1,4 @@
-import { Counter, createCounter } from "./Counter";
+import { Counter } from "./Counter";
 
 export { Player, createPlayer, addCounter, removeCounter, changeName };
 
@@ -7,15 +7,15 @@ interface Player {
   counters: Counter[];
 }
 
-function createPlayer(name: string, health: number): Player {
+function createPlayer(name: string, counter?: Counter): Player {
   return {
     name: name,
-    counters: [createCounter("health", health)]
+    counters: counter ? [counter] : []
   };
 }
 
-function addCounter(player: Player, type: string, value: number): void {
-  player.counters.push(createCounter(type, value));
+function addCounter(player: Player, counter: Counter): void {
+  player.counters.push(counter);
 }
 
 function removeCounter(player: Player, index: number): void {
