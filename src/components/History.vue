@@ -1,10 +1,10 @@
 <template>
   <div class="history">
     <small
-      v-for="(change, index) in getLastFive"
+      v-for="(change, index) in getLast"
       :key="index"
-      :class="index == 0 ? 'first' : ''"
-      >{{ change > 0? '+': '' }}{{ change }}</small
+      :class="[{ first: index == 0}, { negative: change < 0 } ]"
+      >{{ change }}</small
     >
   </div>
 </template>
@@ -14,32 +14,39 @@ import Vue from "vue";
 
 export default Vue.extend({
   props: {
-    history: { type: Array as () => Number[] }
+    history: { type: Array as () => String[] }
   },
 
   computed: {
-    getLastFive(): Number[] {
-      return this.history.slice(Math.max(this.history.length - 5, 0)).reverse();
-    }
+    getLast(): String[] {
+      return this.history.slice(Math.max(this.history.length - 4, 0)).reverse();
+    },
   }
 });
 </script>
 
 <style lang="scss" scoped>
 .history {
-  max-width: 100%;
   height: 2em;
   text-align: left;
-  padding-left: 1em;
-  padding-right: 1em;
   color: var(--text-green);
+  font-weight: bold;
+  display: block;
+  max-width: max-content;
+  margin-left: auto;
+  margin-right: auto;
 
   .first {
-    font-size: 1.3rem;
+    font-size: 1.3em;
+  }
+
+  .negative {
+    color: var(--text-red);
   }
 
   small {
-    padding: 0.2em;
+    display: inline-block;
+    padding: 0em 0em 0em 0.4rem;
   }
 }
 </style>

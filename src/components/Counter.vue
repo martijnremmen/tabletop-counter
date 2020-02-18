@@ -192,13 +192,16 @@ export default Vue.extend({
     }
 
     .titlebar {
-      height: 1.5em;
+      height:max-content;
 
       h3 {
-        width: 80%;
-        margin: 0;
+        max-width: 70%;
+        margin-left: 5%;
+        margin-right: 5%;
+        padding: 0.1em;
         cursor: pointer;
         border-radius: 15px;
+        overflow: auto;
 
         &:hover {
           background-color: var(--text);
