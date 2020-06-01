@@ -3,7 +3,7 @@
     <small
       v-for="(change, index) in getLast"
       :key="index"
-      :class="[{ first: index == 0}, { negative: change < 0 } ]"
+      :class="[{ first: index == 0 }, { negative: change < 0 }]"
       >{{ change }}</small
     >
   </div>
@@ -20,7 +20,7 @@ export default Vue.extend({
   computed: {
     getLast(): String[] {
       return this.history.slice(Math.max(this.history.length - 4, 0)).reverse();
-    },
+    }
   }
 });
 </script>

@@ -10,7 +10,6 @@
     </div>
     <div class="display">
       <div class="titlebar">
-
         <h3 class="type" @click="showRenameModal = true">{{ counter.type }}</h3>
 
         <inputModalComponent
@@ -40,7 +39,7 @@
       </div>
 
       <template v-if="editMode">
-        <p class="value">{{ editValue > 0? '+': '' }}{{ editValue }}</p>
+        <p class="value">{{ editValue > 0 ? "+" : "" }}{{ editValue }}</p>
         <div class="confirmbar">
           <button class="btn-danger" @click="applyChanges()">Ok</button>
           <button class="btn-success" @click="disregardChanges()">
@@ -192,7 +191,7 @@ export default Vue.extend({
     }
 
     .titlebar {
-      height:max-content;
+      height: max-content;
 
       h3 {
         max-width: 70%;
